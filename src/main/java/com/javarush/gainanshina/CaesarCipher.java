@@ -95,14 +95,19 @@ public class CaesarCipher {
             return true;
         }
 
-        // Брутфорс для поиска ключа
-        public static void bruteForce(String encryptedText) {
-            System.out.println("Начинается брутфорс...");
+        public static void bruteForce(String encryptedText, String outputPath) {
+           // System.out.println("Начинается брутфорс...");
             for (int key = 0; key < ALPHABET_SIZE; key++) {
                 String possibleText = decrypt(encryptedText, key);
                 if (isLikelyRussianText(possibleText)) {
                     System.out.println("Возможный ключ: " + key);
-                    System.out.println("Расшифрованный текст:\n" + possibleText);
+                   // System.out.println("Расшифрованный текст:\n" + possibleText);
+                    try {
+                        writeFile(outputPath, possibleText);
+                        System.out.println("Результат сохранен в файл: " + outputPath);
+                    } catch (IOException e) {
+                        System.out.println("Ошибка при сохранении файла: " + e.getMessage());
+                    }
                     return; // остановка после первого подходящего варианта
                 }
             }
@@ -149,9 +154,11 @@ public class CaesarCipher {
                 System.out.print("Введите путь к зашифрованному файлу: ");
                 String inputPath = scanner.nextLine();
 
-                String encryptedText = readFile(inputPath);
-                bruteForce(encryptedText);
+                System.out.print("Введите путь для сохранения результата: ");
+                String outputPath = scanner.nextLine();
 
+                String encryptedText = readFile(inputPath);
+                bruteForce(encryptedText, outputPath);
 
             } else if (mode ==4) {
                 System.exit(0);
