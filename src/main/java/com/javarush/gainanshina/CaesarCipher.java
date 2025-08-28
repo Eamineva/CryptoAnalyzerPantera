@@ -19,6 +19,7 @@ public class CaesarCipher {
                 'ш','щ','ъ','ы','ь','э','ю','я',
                 '.', ',', '“', '”', ':', '-', '!', '?', ' ','\n'
         };
+
         private static final int ALPHABET_SIZE = ALPHABET.length;
         private static final Map<Character, Integer> CHAR_TO_INDEX = new HashMap<>();
 
